@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll the dice</title>
+    <style>
+        #member1, #member2, #member3{
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div id="winner"></div>
+    <div id="member1"></div>
+    <div id="member2"></div>
+    <div id="member3"></div>
+    <button id="roll">ROLL THE DICE</button>
+</body>
+</html>
+<script>
+    let dice1 = document.getElementById("member1");
+    let dice2 = document.getElementById("member2");
+    let dice3 = document.getElementById("member3");
+    let button = document.getElementById("roll");
+    button.addEventListener('click', rollDice);
+    function rollDice(){
+        let result1 = Math.floor((Math.random()*6)+1);
+        let result2 = Math.floor((Math.random()*6)+1);
+        let result3 = Math.floor((Math.random()*6)+1);
+        dice1.textContent = result1;
+        dice2.textContent = result2;
+        dice3.textContent = result3;
+    if(result1 == result2 && result1 == result3){
+        dice1.style.backgroundColor = "blue";
+        dice2.style.backgroundColor = "blue";
+        dice3.style.backgroundColor = "blue";
+            
+    }
+    else if(result1==result2 || result1==result3  || result2==result3){
+        if(result1==result2){
+            dice1.style.backgroundColor = "blue";
+            dice2.style.backgroundColor = "blue";
+            if(result3>result1){
+                dice3.style.backgroundColor = "green";
+            }
+            else{
+                dice3.style.backgroundColor = "red";
+            }
+        }
+        else if(result1==result3){
+            dice1.style.backgroundColor = "blue";
+            dice3.style.backgroundColor = "blue";
+            if(result2>result1){
+                dice2.style.backgroundColor = "green";
+            }
+            else{
+                dice2.style.backgroundColor = "red";
+            }
+        }
+        else if(result2==result3){
+            dice2.style.backgroundColor = "blue";
+            dice3.style.backgroundColor = "blue";
+            if(result1>result2){
+                dice1.style.backgroundColor = "green";
+            }
+            else{
+                dice1.style.backgroundColor = "red";
+            }
+        }
+    }
+    else{    
+        let winner = Math.max(result1,result2,result3)
+        if(result1==winner){
+            dice1.style.backgroundColor = "green";
+            let secondRanker = Math.max(result2,result3);
+            if(secondRanker==result2){
+                dice2.style.backgroundColor = "yellow";
+                dice3.style.backgroundColor = "red";
+            }
+            else{
+                dice3.style.backgroundColor = "yellow";
+                dice2.style.backgroundColor = "red";
+            }
+        }
+        else if(result2==winner){
+            dice2.style.backgroundColor = "green";
+            let secondRanker = Math.max(result1,result3);
+            if(secondRanker==result1){
+                dice1.style.backgroundColor = "yellow";
+                dice3.style.backgroundColor = "red";
+            }
+            else{
+                dice3.style.backgroundColor = "yellow";
+                dice1.style.backgroundColor = "red";
+            }
+        }
+        else{
+            dice3.style.backgroundColor = "green";
+            let secondRanker = Math.max(result2,result1);
+            if(secondRanker==result2){
+                dice2.style.backgroundColor = "yellow";
+                dice1.style.backgroundColor = "red";
+            }
+            else{
+                dice1.style.backgroundColor = "yellow";
+                dice2.style.backgroundColor = "red";
+            }
+        }
+
+    }
+}
+</script>
